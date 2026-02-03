@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,13 +16,14 @@ class TemperatureConverterTest {
     }
 
     @org.junit.jupiter.api.Test
+    @DisplayName("Fahrenheit -> Celsius conversion works for positives, negatives and edge cases")
     void fahrenheitToCelsius() {
         double celsiusAssertionPositive = (positive - 32.0) * (5.0 / 9.0);
         double celsiusAssertionNegative = (negative - 32.0) * (5.0 / 9.0);
         double celsiusAssertionZero = (zero - 32.0) * (5.0 / 9.0);
 
-        assertEquals(celsiusAssertionPositive, tempConv.fahrenheitToCelsius(positive),  "Positive equals test. Should pass");
-        assertEquals(celsiusAssertionNegative, tempConv.fahrenheitToCelsius(negative),  "negative should pass test");
+        assertEquals(celsiusAssertionPositive, tempConv.fahrenheitToCelsius(positive),  "Positive equals test failed");
+        assertEquals(celsiusAssertionNegative, tempConv.fahrenheitToCelsius(negative),  "negative equals test failed");
         assertNotEquals(celsiusAssertionNegative, tempConv.fahrenheitToCelsius(positive),  "Should not pass");
         assertEquals(celsiusAssertionZero, tempConv.fahrenheitToCelsius(0.0), 0.000001);
         assertNotEquals(null, tempConv.fahrenheitToCelsius(positive), "Should not return null");
@@ -36,13 +38,14 @@ class TemperatureConverterTest {
     }
 
     @org.junit.jupiter.api.Test
+    @DisplayName("Celsius -> Fahrenheit conversion works for positives, negatives and edge cases")
     void celsiusToFahrenheit() {
         double fahrenheitAssertionPositive = ((positive * (9.0 / 5.0)) + 32.0);
         double fahrenheitAssertionNegative = ((negative * (9.0 / 5.0)) + 32.0);
         double fahrenheitAssertionZero = ((zero * (9.0 / 5.0)) + 32.0);
 
-        assertEquals(fahrenheitAssertionPositive, tempConv.celsiusToFahrenheit(positive),  "Positive equals test. Should pass");
-        assertEquals(fahrenheitAssertionNegative, tempConv.celsiusToFahrenheit(negative),  "negative should pass test");
+        assertEquals(fahrenheitAssertionPositive, tempConv.celsiusToFahrenheit(positive),  "Positive equals test failed");
+        assertEquals(fahrenheitAssertionNegative, tempConv.celsiusToFahrenheit(negative),  "negative equals test failed");
         assertNotEquals(fahrenheitAssertionNegative, tempConv.celsiusToFahrenheit(positive),  "Should not pass");
         assertEquals(fahrenheitAssertionZero, tempConv.celsiusToFahrenheit(0.0), 0.001);
         assertNotEquals(null, tempConv.celsiusToFahrenheit(positive), "Should not return null");
@@ -57,6 +60,7 @@ class TemperatureConverterTest {
     }
 
     @org.junit.jupiter.api.Test
+    @DisplayName("Test for isExtremeTemperature method passes with edge cases")
     void isExtremeTemperature() {
         assertTrue(tempConv.isExtremeTemperature(positive));
         assertTrue(tempConv.isExtremeTemperature(negative));
