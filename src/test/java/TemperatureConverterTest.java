@@ -73,4 +73,19 @@ class TemperatureConverterTest {
         assertTrue(tempConv.isExtremeTemperature(-40.00001));
         assertTrue(tempConv.isExtremeTemperature(50.000000001));
     }
+
+    @org.junit.jupiter.api.Test
+    @DisplayName("Kelvin -> Celsius conversion works for typical and edge cases")
+    void kelvinToCelsius() {
+        // Input: 300 K -> 26.85°C
+        assertEquals(26.85, tempConv.kelvinToCelsius(300.0), 0.000001);
+
+        // Reference / edge points
+        assertEquals(0.0, tempConv.kelvinToCelsius(273.15), 0.000001);
+        assertEquals(-273.15, tempConv.kelvinToCelsius(0.0), 0.000001);
+
+        // Additional sanity check
+        assertEquals(100.0, tempConv.kelvinToCelsius(373.15), 0.000001);
+        assertNotEquals(null, tempConv.kelvinToCelsius(300.0), "Should not return null");
+    }
 }
