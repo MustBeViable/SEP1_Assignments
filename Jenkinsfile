@@ -2,20 +2,16 @@ pipeline {
   agent any
 
   options {
-    // Jenkins tekee jo "Declarative: Checkout SCM" automaattisesti
     skipDefaultCheckout(false)
   }
 
   environment {
-    // Apple Silicon Homebrew + mahdollinen /usr/local (docker symlink / rosetta) mukaan
     PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
-    // Jos käytät Homebrew Javaa (sun mvn -version näytti tämän), tämä tekee buildistä varmemman Jenkinsissä
     JAVA_HOME = "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
 
-    // Docker Hub (vaihda nämä omiin)
-    DOCKERHUB_CREDENTIALS_ID = 'Docker_Hub'     // Jenkins Credentials ID (Username/Password)
-    DOCKERHUB_REPO           = 'YOUR_DH_USER/YOUR_REPO'
+    DOCKERHUB_CREDENTIALS_ID = 'Docker'     // Jenkins Credentials ID (Username/Password)
+    DOCKERHUB_REPO           = 'https://github.com/MustBeViable/SEP1_Assignments.git'
     DOCKER_IMAGE_TAG         = 'latest'
   }
 
@@ -44,7 +40,6 @@ pipeline {
 
     stage('Code Coverage') {
       steps {
-        // JaCoCo raportti (olettaa että pom.xml:ssä on jacoco plugin)
         sh 'mvn -B jacoco:report'
       }
     }
@@ -57,15 +52,12 @@ pipeline {
 
     stage('Publish Coverage Report') {
       steps {
-        // Tämä toimii vain jos Jenkinsissä on JaCoCo plugin + pipeline step käytössä.
-        // Jos tämä kaatuu "No such DSL method 'jacoco'", poista tämä stage tai käytä HTML publisheria.
         jacoco()
       }
     }
 
     stage('Build Docker Image') {
       steps {
-        // Varmista että Docker Desktop on käynnissä Macissa
         sh '''
           docker build -t "${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}" .
         '''
@@ -91,7 +83,6 @@ pipeline {
 
   post {
     always {
-      // Hyödyllinen kun katsoo buildin jälkeen, mitä syntyi
       archiveArtifacts artifacts: '**/target/*.jar, **/target/site/jacoco/**', allowEmptyArchive: true
     }
   }
