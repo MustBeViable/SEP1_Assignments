@@ -10,8 +10,8 @@ pipeline {
 
     JAVA_HOME = "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
 
-    DOCKERHUB_CREDENTIALS_ID = 'Docker'     // Jenkins Credentials ID (Username/Password)
-    DOCKERHUB_REPO           = 'https://github.com/MustBeViable/SEP1_Assignments.git'
+    DOCKERHUB_CREDENTIALS_ID = 'Docker'
+    DOCKERHUB_REPO           = 'eliasrinne/sep_assignment'
     DOCKER_IMAGE_TAG         = 'latest'
   }
 
