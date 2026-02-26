@@ -5,6 +5,7 @@ public class TempConvMain {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TemperatureConverter converter = new TemperatureConverter();
+        System.out.println("Muutos2.0");
 
         while (true) {
             System.out.println("\nChoose source unit:");
