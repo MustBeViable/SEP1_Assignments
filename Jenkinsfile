@@ -1,31 +1,31 @@
 pipeline {
     agent any
+
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/MustBeViable/SEP1_Assignments.git'
-            }
-        }
         stage('Build') {
             steps {
-                sh 'mvn clean install'
+                sh 'mvn -B clean install'
             }
         }
+
         stage('Test') {
             steps {
-                bsh 'mvn test'
+                sh 'mvn -B test'
             }
         }
+
         stage('Code Coverage') {
             steps {
-                sh 'mvn jacoco:report'
+                sh 'mvn -B jacoco:report'
             }
         }
+
         stage('Publish Test Results') {
             steps {
                 junit '**/target/surefire-reports/*.xml'
             }
         }
+
         stage('Publish Coverage Report') {
             steps {
                 jacoco()
