@@ -1,11 +1,17 @@
-FROM maven:latest
-LABEL authors="eliasrinne"
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 
 WORKDIR /app
 
-copy pom.xml .
+COPY pom.xml .
+RUN mvn dependency:go-offline
 
-COPY . /app
-RUN mvn package
-CMD ["java", "-jar", "target/laskin"]
+COPY src ./src
+RUN mvn clean package
 
+FROM eclipse-temurin:21-jre
+
+WORKDIR /app
+
+COPY --from=build /app/target/*jar app.jar
+
+CMD ["java", "-jar", "app.jar"]
