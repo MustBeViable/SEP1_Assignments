@@ -8,7 +8,7 @@ pipeline {
   environment {
     PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
-    JAVA_HOME = "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
+    JAVA_HOME = "/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home"
 
     DOCKERHUB_CREDENTIALS_ID = 'Docker'
     DOCKERHUB_REPO           = 'eliasrinne/sep_assignment'

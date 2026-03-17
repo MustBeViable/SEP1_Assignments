@@ -27,7 +27,6 @@
     <build>
         <plugins>
 
-            <!-- Create runnable JAR with Main-Class in MANIFEST.MF -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -41,7 +40,6 @@
                 </configuration>
             </plugin>
 
-            <!-- Run JUnit 5 tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -51,7 +49,6 @@
                 </configuration>
             </plugin>
 
-            <!-- JaCoCo coverage -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
